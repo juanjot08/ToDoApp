@@ -35,12 +35,6 @@ namespace ToDoApp
             buttonSingUp.Click += BtnSingUpnOnClick;
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-            return true;
-        }
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -66,6 +60,7 @@ namespace ToDoApp
             services.AddSingleton<IDataBaseService>(new Context(path));
 
             services.AddScoped<IUsuariosRepository,UserService>();
+            services.AddScoped<ITaskRepository, TaskService>();
 
             services.AddAutoMapper(typeof(SQLiteProfile));
         }

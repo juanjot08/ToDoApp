@@ -17,8 +17,11 @@ namespace ToDoApp.Models.Repository.SQLite
     {
         public Context(string databasePath) : base(databasePath)
         {
+            CreateTable<TaskEntity>();
         }
 
         public TableQuery<UsuarioEntity> Users => Table<UsuarioEntity>();
+
+        public TableQuery<TaskEntity> Tasks => Table<TaskEntity>();
     }
 }

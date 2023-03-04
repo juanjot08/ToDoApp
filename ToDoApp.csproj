@@ -62,13 +62,18 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Dto\TaskEntity.cs" />
     <Compile Include="Models\Dto\UsuarioEntity.cs" />
+    <Compile Include="Models\Entities\Interfaces\ITaskRepository.cs" />
     <Compile Include="Models\Entities\Interfaces\IUsuariosRepository.cs" />
+    <Compile Include="Models\Entities\Task.cs" />
     <Compile Include="Models\Entities\Usuarios.cs" />
     <Compile Include="Models\Repository\SQLite\Context.cs" />
     <Compile Include="Models\Repository\SQLite\IDataBaseService.cs" />
+    <Compile Include="Models\Repository\SQLite\Services\TaskService.cs" />
     <Compile Include="Models\Repository\SQLite\Services\UserService.cs" />
     <Compile Include="Models\Repository\SQLite\SQLiteProfile.cs" />
+    <Compile Include="ViewModels\ListAdapter.cs" />
     <Compile Include="Views\ForgotPassword.cs" />
     <Compile Include="Views\RegistrarUsuario.cs" />
     <Compile Include="Views\MainActivity.cs" />
@@ -94,7 +99,6 @@
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
     <AndroidResource Include="Resources\values\strings.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
-    <AndroidResource Include="Resources\menu\menu_main.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
@@ -114,7 +118,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper">
@@ -147,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\todologo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\row.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\content_todo_mainview.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

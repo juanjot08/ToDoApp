@@ -11,6 +11,7 @@ namespace ToDoApp.Models.Repository.SQLite
         {
 
             CreateMap<Usuarios, UsuarioEntity>().ReverseMap(); 
+            CreateMap<Task, TaskEntity>().ReverseMap();
         
         }
     }
