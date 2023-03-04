@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <ImageView
+        android:src="@drawable/todologo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Hello World!" />
+        android:id="@+id/imageView1"
+        android:contentDescription="description"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp"/>
 
-</RelativeLayout>
+
+    <EditText
+        android:inputType="textEmailAddress"
+        android:id="@+id/campoEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp" />
+
+    <EditText
+        android:inputType="textPassword"
+        android:id="@+id/campoContra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp"/>
+    <Button
+        android:text="Iniciar Sesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInicioSesion" 
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp"/>
+
+    <Button
+        android:text="Registro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRegistrar" 
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp"/>
+
+</LinearLayout>
