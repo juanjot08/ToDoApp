@@ -9,7 +9,7 @@ namespace ToDoApp.Models.Entities.Interfaces
 
         void CreateTask(Task task);
 
-        List<Task> GetAllTasks();
+        List<Task> GetAllTasks(int userId);
 
     }
 }

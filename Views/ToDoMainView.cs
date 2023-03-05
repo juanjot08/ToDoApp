@@ -9,10 +9,7 @@ using ToDoApp.Models.Repository.SQLite.Services;
 using ToDoApp.Models.Repository.SQLite;
 using ToDoApp.ViewModels;
 using System.IO;
-using Java.Security;
 using System;
-using Android.Views;
-using Google.Android.Material.Snackbar;
 using Google.Android.Material.FloatingActionButton;
 using Android.Content;
 using Context = ToDoApp.Models.Repository.SQLite.Context;
@@ -27,6 +24,7 @@ namespace ToDoApp.Views
         private ListAdapter listAdapter;
         private IServiceProvider _provider;
         EditText edtTask;
+        int UserId;
 
         public ToDoMainView() { }
 
@@ -43,17 +41,22 @@ namespace ToDoApp.Views
 
             RegistrarDependencias();
 
+            var sharedPreferences = Application.Context.GetSharedPreferences("ToDoApp", FileCreationMode.Private);
+
+            UserId = sharedPreferences.GetInt("UserId", int.MinValue);
+
             lstTask = FindViewById<ListView>(Resource.Id.lstTask);
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
             LoadTaskList();
+
         }
 
         public void LoadTaskList()
         {
-            List<Task> taskList = _taskRepository.GetAllTasks();
+            List<Task> taskList = _taskRepository.GetAllTasks(UserId);
             listAdapter = new ListAdapter(this, taskList, _taskRepository);
             lstTask.Adapter = listAdapter;
         }
@@ -62,11 +65,11 @@ namespace ToDoApp.Views
         {
             edtTask = new EditText(this);
             AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .SetTitle("Add New Task")
-                .SetMessage("What do you want to do next?")
+                .SetTitle("Agregar Nueva Tarea")
+                .SetMessage("Registra el título de la tarea")
                 .SetView(edtTask)
-                .SetPositiveButton("Add", OkAction)
-                .SetNegativeButton("Cancel", CancelAction)
+                .SetPositiveButton("Agregar", OkAction)
+                .SetNegativeButton("Cancelar", CancelAction)
                 .Create();
             alertDialog.Show();
         }
@@ -77,6 +80,7 @@ namespace ToDoApp.Views
             _taskRepository.CreateTask(new Task()
             {
                 Title = task,
+                UserId = UserId
             });
 
             LoadTaskList();
@@ -92,11 +96,10 @@ namespace ToDoApp.Views
 
             string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "users.db3");
             services.AddSingleton<IDataBaseService>(new Context(path));
+            services.AddAutoMapper(typeof(SQLiteProfile));
 
-            services.AddScoped<IUsuariosRepository, UserService>();
             services.AddScoped<ITaskRepository, TaskService>();
 
-            services.AddAutoMapper(typeof(SQLiteProfile));
             _provider = services.BuildServiceProvider();
 
             _taskRepository = _provider.GetService<ITaskRepository>();

@@ -37,16 +37,22 @@ namespace ToDoApp.ViewModels
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             LayoutInflater inflater = (LayoutInflater)mainView.GetSystemService(Context.LayoutInflaterService);
+            
             View view = inflater.Inflate(Resource.Layout.row, null);
+            
             TextView txtTask = view.FindViewById<TextView>(Resource.Id.task_title);
+            
             Button btnDelete = view.FindViewById<Button>(Resource.Id.btnDelete);
+            
             txtTask.Text = _taskList[position].Title;
+
             btnDelete.Click += delegate
             {
                 Task taskId = _taskList[position];
                 _dataBaseService.DeleteTask(taskId);
-                mainView.LoadTaskList(); // Reload Data  
+                mainView.LoadTaskList(); 
             };
+
             return view;
         }
     }

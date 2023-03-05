@@ -32,9 +32,9 @@ namespace ToDoApp.Models.Repository.SQLite.Services
             _databaseService.Tasks.Connection.Delete(taskEntity);
         }
 
-        public List<Task> GetAllTasks()
+        public List<Task> GetAllTasks(int userId)
         {
-            List<TaskEntity> taskEntity = _databaseService.Tasks.ToList();
+            List<TaskEntity> taskEntity = _databaseService.Tasks.Where(_ => _.UserId == userId).ToList();
 
             return _mapper.Map<List<Task>>(taskEntity);
         }

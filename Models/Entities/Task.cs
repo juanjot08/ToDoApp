@@ -7,5 +7,7 @@
         public string Title { set; get; }
 
         public string TextDescription { set; get; }
+
+        public int UserId { set; get; }
     }
 }

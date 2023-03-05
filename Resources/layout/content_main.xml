@@ -24,6 +24,7 @@
     <EditText
         android:inputType="textEmailAddress"
         android:id="@+id/campoEmail"
+        android:hint="Correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -33,6 +34,7 @@
     <EditText
         android:inputType="textPassword"
         android:id="@+id/campoContra"
+        android:hint="Contraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -48,7 +50,7 @@
         android:layout_marginLeft="71.0dp"/>
 
     <Button
-        android:text="Registro"
+        android:text="Registrarse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnRegistrar" 
