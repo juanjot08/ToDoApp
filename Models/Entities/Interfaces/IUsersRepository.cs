@@ -2,9 +2,9 @@
 
 namespace ToDoApp.Models.Entities.Interfaces
 {
-    public interface IUsuariosRepository
+    public interface IUsersRepository
     {
-        Usuarios SelecionarUno(string NombreUsuario, string ClaveUsuario);
+        Users SelecionarUno(string NombreUsuario, string ClaveUsuario);
 
         void CrearUsuario(string NombreUsuario, string ClaveUsuario);
     }

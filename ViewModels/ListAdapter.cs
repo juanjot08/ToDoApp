@@ -31,7 +31,7 @@ namespace ToDoApp.ViewModels
 
         public override long GetItemId(int position)
         {
-            return position;
+            return _taskList[position].Id;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -43,7 +43,9 @@ namespace ToDoApp.ViewModels
             TextView txtTask = view.FindViewById<TextView>(Resource.Id.task_title);
             
             Button btnDelete = view.FindViewById<Button>(Resource.Id.btnDelete);
-            
+
+            Button btnDetail = view.FindViewById<Button>(Resource.Id.btnDetailView);
+
             txtTask.Text = _taskList[position].Title;
 
             btnDelete.Click += delegate
@@ -51,6 +53,13 @@ namespace ToDoApp.ViewModels
                 Task taskId = _taskList[position];
                 _dataBaseService.DeleteTask(taskId);
                 mainView.LoadTaskList(); 
+            };
+
+            btnDetail.Click += delegate
+            {
+                Task taskId = _taskList[position];
+
+                mainView.DetailTask(taskId);
             };
 
             return view;

@@ -63,11 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Dto\TaskEntity.cs" />
-    <Compile Include="Models\Dto\UsuarioEntity.cs" />
+    <Compile Include="Models\Dto\UsersEntity.cs" />
     <Compile Include="Models\Entities\Interfaces\ITaskRepository.cs" />
-    <Compile Include="Models\Entities\Interfaces\IUsuariosRepository.cs" />
+    <Compile Include="Models\Entities\Interfaces\IUsersRepository.cs" />
     <Compile Include="Models\Entities\Task.cs" />
-    <Compile Include="Models\Entities\Usuarios.cs" />
+    <Compile Include="Models\Entities\Users.cs" />
     <Compile Include="Models\Repository\SQLite\Context.cs" />
     <Compile Include="Models\Repository\SQLite\IDataBaseService.cs" />
     <Compile Include="Models\Repository\SQLite\Services\TaskService.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Models\Repository\SQLite\SQLiteProfile.cs" />
     <Compile Include="ViewModels\ListAdapter.cs" />
     <Compile Include="Views\ForgotPassword.cs" />
-    <Compile Include="Views\RegistrarUsuario.cs" />
+    <Compile Include="Views\SingUpUser.cs" />
     <Compile Include="Views\MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,7 +138,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_registrar_usuario.xml" />
+    <AndroidResource Include="Resources\layout\activity_sing_up_user.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_todo_mainwiew.xml" />

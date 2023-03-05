@@ -2,7 +2,7 @@
 
 namespace ToDoApp.Models.Dto
 {
-    public class UsuarioEntity
+    public class UsersEntity
     {
         [PrimaryKey, AutoIncrement]
         [MaxLength(10)]

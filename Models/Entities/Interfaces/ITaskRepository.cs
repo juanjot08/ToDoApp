@@ -11,5 +11,9 @@ namespace ToDoApp.Models.Entities.Interfaces
 
         List<Task> GetAllTasks(int userId);
 
+        Task GetTaskById(int taskId);
+
+        void UpdateTask(Task task);
+
     }
 }

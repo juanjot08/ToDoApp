@@ -5,7 +5,7 @@ using ToDoApp.Models.Entities.Interfaces;
 
 namespace ToDoApp.Models.Repository.SQLite.Services
 {
-    public class UserService : IUsuariosRepository
+    public class UserService : IUsersRepository
     {
         private readonly IDataBaseService _databaseService;
         private readonly IMapper _mapper;
@@ -18,19 +18,19 @@ namespace ToDoApp.Models.Repository.SQLite.Services
 
         public void CrearUsuario(string NombreUsuario, string ClaveUsuario)
         {
-            _databaseService.Users.Connection.Insert(new UsuarioEntity()
+            _databaseService.Users.Connection.Insert(new UsersEntity()
             {
                 Usuario = NombreUsuario,
                 Password = ClaveUsuario
             });
         }
 
-        public Usuarios SelecionarUno(string nombreUsuario, string claveUsuario)
+        public Users SelecionarUno(string nombreUsuario, string claveUsuario)
         {
-            UsuarioEntity usuario = _databaseService.Users
+            UsersEntity usuario = _databaseService.Users
                                     .FirstOrDefault(_ => _.Usuario == nombreUsuario & _.Password == claveUsuario);
 
-            return _mapper.Map<Usuarios>(usuario);
+            return _mapper.Map<Users>(usuario);
 
         }
     }

@@ -10,7 +10,7 @@ namespace ToDoApp.Models.Repository.SQLite
         public SQLiteProfile() 
         {
 
-            CreateMap<Usuarios, UsuarioEntity>().ReverseMap(); 
+            CreateMap<Users, UsersEntity>().ReverseMap(); 
             CreateMap<Task, TaskEntity>().ReverseMap();
         
         }

@@ -7,24 +7,25 @@ using ToDoApp.Models.Repository.SQLite.Services;
 using ToDoApp.Models.Repository.SQLite;
 using System.IO;
 using System;
+using System.Net.Mail;
 
 namespace ToDoApp
 {
     [Activity(Label = "RegistrarUsuario")]
-    public class RegistrarUsuario : Activity
+    public class SingUpUser : Activity
     {
         private TextView user;
         private TextView password;
         private IServiceProvider serviceProvider;
-        private IUsuariosRepository usuariosRepository;
+        private IUsersRepository usersRepository;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.activity_registrar_usuario);
+            SetContentView(Resource.Layout.activity_sing_up_user);
 
-            RegistrarDependencias();
+            InyectDependencies();
 
             Button buttonRegister = FindViewById<Button>(Resource.Id.singUpbtnRegister);
             Button buttonBack = FindViewById<Button>(Resource.Id.singUpbtnBack);
@@ -34,11 +35,18 @@ namespace ToDoApp
 
             buttonRegister.Click += delegate
             {
-                usuariosRepository.CrearUsuario(user.Text, password.Text);
+                if (IsValidInformation(user.Text, password.Text)) {
 
-                StartActivity(typeof(MainActivity));
-                
-                Finish();
+                    usersRepository.CrearUsuario(user.Text, password.Text);
+
+                    StartActivity(typeof(MainActivity));
+
+                    Finish();
+                }
+                else
+                {
+                    Toast.MakeText(this, "Digite correctamente los campos del formulario", ToastLength.Long).Show();
+                }
             };
 
             buttonBack.Click += delegate
@@ -50,19 +58,40 @@ namespace ToDoApp
 
         }
 
-        private void RegistrarDependencias()
+        private bool IsValidInformation(string email, string password)
+        {
+            return !string.IsNullOrWhiteSpace(email)
+                  & !string.IsNullOrWhiteSpace(password)
+                  & IsValidEmail(email);
+        }
+
+        private void InyectDependencies()
         {
             IServiceCollection services = new ServiceCollection();
 
             string path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "users.db3");
             services.AddSingleton<IDataBaseService>(new Context(path));
             services.AddAutoMapper(typeof(SQLiteProfile));
-            services.AddScoped<IUsuariosRepository, UserService>();
+            services.AddScoped<IUsersRepository, UserService>();
 
             serviceProvider = services.BuildServiceProvider();
 
-            usuariosRepository = serviceProvider.GetService<IUsuariosRepository>();
+            usersRepository = serviceProvider.GetService<IUsersRepository>();
 
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(email);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

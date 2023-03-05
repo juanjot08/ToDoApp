@@ -1,6 +1,6 @@
 ﻿namespace ToDoApp.Models.Entities
 {
-    public class Usuarios
+    public class Users
     {
         public int Id { get; set; }
 

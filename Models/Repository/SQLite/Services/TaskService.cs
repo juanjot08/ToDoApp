@@ -38,5 +38,20 @@ namespace ToDoApp.Models.Repository.SQLite.Services
 
             return _mapper.Map<List<Task>>(taskEntity);
         }
+
+        public Task GetTaskById(int taskId)
+        {
+            TaskEntity taskEntity = _databaseService.Tasks
+                                    .Where(_ => _.Id == taskId).FirstOrDefault();
+
+            return _mapper.Map<Task>(taskEntity);
+        }
+
+        public void UpdateTask(Task task)
+        {
+            TaskEntity taskEntity = _mapper.Map<TaskEntity>(task);
+
+            _databaseService.Tasks.Connection.Update(taskEntity);
+        }
     }
 }

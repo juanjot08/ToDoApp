@@ -13,6 +13,7 @@ using System;
 using Google.Android.Material.FloatingActionButton;
 using Android.Content;
 using Context = ToDoApp.Models.Repository.SQLite.Context;
+using Android.Views;
 
 namespace ToDoApp.Views
 {
@@ -39,7 +40,7 @@ namespace ToDoApp.Views
 
             SetContentView(Resource.Layout.activity_todo_mainwiew);
 
-            RegistrarDependencias();
+            InyectDependencies();
 
             var sharedPreferences = Application.Context.GetSharedPreferences("ToDoApp", FileCreationMode.Private);
 
@@ -59,6 +60,20 @@ namespace ToDoApp.Views
             List<Task> taskList = _taskRepository.GetAllTasks(UserId);
             listAdapter = new ListAdapter(this, taskList, _taskRepository);
             lstTask.Adapter = listAdapter;
+        }
+
+        public void DetailTask(Task task)
+        {
+            Intent intent = new Intent(this, typeof(ToDoDetailedView));
+
+            Bundle bundle = new Bundle();
+
+            bundle.PutInt("TaskId", task.Id);
+
+            intent.PutExtras(bundle);
+
+            StartActivity(intent);
+            Finish();
         }
 
         private void FabOnClick(object sender, EventArgs eventArgs)
@@ -90,7 +105,7 @@ namespace ToDoApp.Views
         {
         }
 
-        private void RegistrarDependencias()
+        private void InyectDependencies()
         {
             IServiceCollection services = new ServiceCollection();
 
@@ -104,5 +119,6 @@ namespace ToDoApp.Views
 
             _taskRepository = _provider.GetService<ITaskRepository>();
         }
+
     }
 }

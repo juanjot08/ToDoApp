@@ -13,13 +13,14 @@ using ToDoApp.Views;
 using ToDoApp.Models.Entities;
 using Android.Content;
 using Context = ToDoApp.Models.Repository.SQLite.Context;
+using System.Net.Mail;
 
 namespace ToDoApp
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private IUsuariosRepository usuariosRepository;
+        private IUsersRepository usersRepository;
         private IServiceProvider serviceProvider;
         private TextView user;
         private TextView password;
@@ -30,12 +31,12 @@ namespace ToDoApp
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            RegistrarDependencias();
+            InyectDependencies();
 
-            Button buttonLogin = FindViewById<Button>(Resource.Id.btnInicioSesion);
-            Button buttonSingUp = FindViewById<Button>(Resource.Id.btnRegistrar);
-            user = FindViewById<TextView>(Resource.Id.campoEmail);
-            password = FindViewById<TextView>(Resource.Id.campoContra);
+            Button buttonLogin = FindViewById<Button>(Resource.Id.btnLogin);
+            Button buttonSingUp = FindViewById<Button>(Resource.Id.btnSingUp);
+            user = FindViewById<TextView>(Resource.Id.loginEmail);
+            password = FindViewById<TextView>(Resource.Id.loginPassword);
 
             buttonLogin.Click += BtnLoginOnClick;
             buttonSingUp.Click += BtnSingUpnOnClick;
@@ -50,9 +51,9 @@ namespace ToDoApp
 
         private void BtnLoginOnClick(object sender, EventArgs eventArgs)
         {
-            Usuarios usuario = usuariosRepository.SelecionarUno(user.Text, password.Text);
+            Users usuario = usersRepository.SelecionarUno(user.Text, password.Text);
 
-            if (usuario != null)
+            if (usuario != null & IsValidInformation(user.Text, password.Text))
             {
                 var sharedPreferences = Application.Context.GetSharedPreferences("ToDoApp", FileCreationMode.Private);
 
@@ -72,10 +73,31 @@ namespace ToDoApp
 
         private void BtnSingUpnOnClick(object sender, EventArgs eventArgs)
         {
-            StartActivity(typeof(RegistrarUsuario));
+            StartActivity(typeof(SingUpUser));
         }
 
-        private void RegistrarDependencias()
+        private bool IsValidInformation(string email, string password)
+        {
+            return !string.IsNullOrWhiteSpace(email)
+                  & !string.IsNullOrWhiteSpace(password)
+                  & IsValidEmail(email);
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(email);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private void InyectDependencies()
         {
             IServiceCollection services = new ServiceCollection();
 
@@ -83,11 +105,11 @@ namespace ToDoApp
             services.AddSingleton<IDataBaseService>(new Context(path));
             services.AddAutoMapper(typeof(SQLiteProfile));
 
-            services.AddScoped<IUsuariosRepository,UserService>();
+            services.AddScoped<IUsersRepository,UserService>();
 
             serviceProvider = services.BuildServiceProvider();
 
-            usuariosRepository = serviceProvider.GetService<IUsuariosRepository>();
+            usersRepository = serviceProvider.GetService<IUsersRepository>();
 
         }
 	}
