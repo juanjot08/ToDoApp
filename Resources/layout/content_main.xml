@@ -24,7 +24,7 @@
     <EditText
         android:inputType="textEmailAddress"
         android:id="@+id/loginEmail"
-        android:hint="Correo"
+        android:hint="Correo (usuario@correo.com)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -40,6 +40,18 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="79.5dp"
         android:layout_marginLeft="71.0dp"/>
+
+    <TextView
+        android:id="@+id/txtForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Olvidaste tu contraseña?"
+        android:editable="false"
+        android:clickable="true"
+        android:layout_marginRight="79.5dp"
+        android:layout_marginLeft="71.0dp"
+        style="@style/HyperlinkButton" />
+
     <Button
         android:text="Iniciar Sesion"
         android:layout_width="match_parent"

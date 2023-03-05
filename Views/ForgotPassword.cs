@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Widget;
 
 namespace ToDoApp.Views
 {
@@ -10,7 +11,15 @@ namespace ToDoApp.Views
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
+            SetContentView(Resource.Layout.activity_forgot_password);
+
+            Button back = FindViewById<Button>(Resource.Id.forgotPasswordbtnBack);
+
+            back.Click += delegate
+            {
+                StartActivity(typeof(MainActivity));
+                Finish();
+            };
         }
     }
 }

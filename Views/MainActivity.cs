@@ -24,6 +24,7 @@ namespace ToDoApp
         private IServiceProvider serviceProvider;
         private TextView user;
         private TextView password;
+        private TextView forgotPassword;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,9 +38,16 @@ namespace ToDoApp
             Button buttonSingUp = FindViewById<Button>(Resource.Id.btnSingUp);
             user = FindViewById<TextView>(Resource.Id.loginEmail);
             password = FindViewById<TextView>(Resource.Id.loginPassword);
+            forgotPassword = FindViewById<TextView>(Resource.Id.txtForgotPassword);
 
             buttonLogin.Click += BtnLoginOnClick;
             buttonSingUp.Click += BtnSingUpnOnClick;
+
+            forgotPassword.Click += delegate
+            {
+                StartActivity(typeof(ForgotPassword));
+                Finish();
+            };
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -51,9 +59,9 @@ namespace ToDoApp
 
         private void BtnLoginOnClick(object sender, EventArgs eventArgs)
         {
-            Users usuario = usersRepository.SelecionarUno(user.Text, password.Text);
+            Users usuario = usersRepository.SelecionarUno(user.Text.Trim(), password.Text);
 
-            if (usuario != null & IsValidInformation(user.Text, password.Text))
+            if (usuario != null & IsValidInformation(user.Text.Trim(), password.Text))
             {
                 var sharedPreferences = Application.Context.GetSharedPreferences("ToDoApp", FileCreationMode.Private);
 
